@@ -1,0 +1,188 @@
+@inherits LayoutComponentBase
+
+<div class="site-wrapper">
+
+    <!-- MARQUEE BANNER (CSS scroll animation, zero JS) -->
+    <div class="marquee-wrapper" aria-hidden="true">
+        <div class="marquee-text">
+            *** WELCOME TO MY TOTALLY RADICAL BLOG *** &nbsp;&nbsp;&nbsp;
+            BEST VIEWED IN NETSCAPE NAVIGATOR 4.0+ AT 800x600 &nbsp;&nbsp;&nbsp;
+            *** THIS SITE IS UNDER CONSTRUCTION *** &nbsp;&nbsp;&nbsp;
+            YOU ARE VISITOR #<span class="visitor-num">001337</span> &nbsp;&nbsp;&nbsp;
+            *** PLEASE SIGN MY GUESTBOOK *** &nbsp;&nbsp;&nbsp;
+            POWERED BY .NET 10 BLAZOR WASM &mdash; ZERO JAVASCRIPT!!! &nbsp;&nbsp;&nbsp;
+        </div>
+    </div>
+
+    <!-- SITE HEADER -->
+    <header class="site-header">
+        <div class="header-stars">
+            <span class="star-anim">&#9733;</span>
+            <span class="star-anim delay-1">&#9733;</span>
+            <span class="star-anim delay-2">&#9733;</span>
+            <span class="star-anim delay-1">&#9733;</span>
+            <span class="star-anim">&#9733;</span>
+        </div>
+        <h1 class="site-title">
+            <span class="blink-text">~*~</span>
+            WebMaster9000's BLOG
+            <span class="blink-text">~*~</span>
+        </h1>
+        <p class="site-tagline">
+            .::.&nbsp; The BEST Blog on the Information Superhighway &nbsp;.::.
+        </p>
+        <div class="header-stars">
+            <span class="star-anim delay-2">&#9733;</span>
+            <span class="star-anim delay-1">&#9733;</span>
+            <span class="star-anim">&#9733;</span>
+            <span class="star-anim delay-1">&#9733;</span>
+            <span class="star-anim delay-2">&#9733;</span>
+        </div>
+    </header>
+
+    <!-- NAVIGATION BAR -->
+    <nav class="nav-bar">
+        <table class="nav-table" role="presentation">
+            <tr>
+                <td><NavLink href="/" Match="NavLinkMatch.All" class="nav-link">[ HOME ]</NavLink></td>
+                <td><NavLink href="/blog" class="nav-link">[ BLOG ]</NavLink></td>
+                <td><NavLink href="/about" class="nav-link">[ ABOUT ME ]</NavLink></td>
+                <td><span class="nav-link nav-fake">[ GUESTBOOK ]</span></td>
+                <td><span class="nav-link nav-fake">[ WEB RING ]</span></td>
+            </tr>
+        </table>
+    </nav>
+
+    <!-- MAIN 3-COLUMN LAYOUT -->
+    <div class="content-wrapper">
+
+        <!-- LEFT SIDEBAR -->
+        <aside class="sidebar-left">
+
+            <div class="sidebar-box">
+                <div class="sidebar-title">!! SITE INFO !!</div>
+                <div class="sidebar-content">
+                    <p class="blink-text">UNDER CONSTRUCTION</p>
+                    <div class="construction-ascii">
+                        <pre>
+  /\___/\
+ ( o   o )
+ (  =^=  )
+  (      )
+  (______)
+  WORKING!</pre>
+                    </div>
+                    <hr class="sidebar-hr">
+                    <p>Updated:<br/><b>May 1999</b></p>
+                    <hr class="sidebar-hr">
+                    <p>Optimized for:<br/><b>800x600</b></p>
+                    <hr class="sidebar-hr">
+                    <p>Browser:<br/><b>Netscape 4+</b></p>
+                </div>
+            </div>
+
+            <div class="sidebar-box">
+                <div class="sidebar-title">HIT COUNTER</div>
+                <div class="sidebar-content hit-counter-box">
+                    <div class="counter-display">001337</div>
+                    <p class="counter-label">VISITORS!!!</p>
+                    <p class="counter-sub">since Jan 1999</p>
+                </div>
+            </div>
+
+            <div class="sidebar-box">
+                <div class="sidebar-title">WEB RING</div>
+                <div class="sidebar-content">
+                    <p class="ring-text">&#10094; PREV</p>
+                    <p class="ring-name blink-slow">BLAZOR<br/>WEB RING</p>
+                    <p class="ring-text">NEXT &#10095;</p>
+                    <hr class="sidebar-hr">
+                    <p class="small-text">Join our web ring!<br/>Email to apply!</p>
+                </div>
+            </div>
+
+            <div class="sidebar-box">
+                <div class="sidebar-title">MIDI MUSIC</div>
+                <div class="sidebar-content">
+                    <p class="blink-text">&#9834; PLAYING &#9834;</p>
+                    <p><i>Barbie Girl<br/>- Aqua</i></p>
+                    <p class="small-text">(MIDI auto-play<br/>coming soon!!!)</p>
+                </div>
+            </div>
+
+        </aside>
+
+        <!-- MAIN CONTENT -->
+        <main class="main-content">
+            @Body
+        </main>
+
+        <!-- RIGHT SIDEBAR -->
+        <aside class="sidebar-right">
+
+            <div class="sidebar-box">
+                <div class="sidebar-title">COOL STUFF</div>
+                <div class="sidebar-content">
+                    <p><span class="blink-text">&#127381; NEW!</span></p>
+                    <p>Check out my<br/><b>LATEST POSTS</b>!!!</p>
+                    <hr class="sidebar-hr">
+                    <p class="blink-slow">FREE WEB<br/>HOSTING!</p>
+                    <hr class="sidebar-hr">
+                    <p>Made with:<br/>
+                    <b>.NET 10</b><br/>
+                    <b>Blazor WASM</b><br/>
+                    <span class="zero-js-badge">ZERO JS!</span></p>
+                </div>
+            </div>
+
+            <div class="sidebar-box">
+                <div class="sidebar-title">AWARDS!!!</div>
+                <div class="sidebar-content">
+                    <div class="award-badge gold">
+                        <div class="award-star">&#9733;</div>
+                        <div>SITE OF<br/>THE MONTH!</div>
+                        <div class="award-star">&#9733;</div>
+                    </div>
+                    <hr class="sidebar-hr">
+                    <div class="award-badge silver">
+                        <div>COOL<br/>SITE!!!</div>
+                    </div>
+                    <hr class="sidebar-hr">
+                    <div class="award-badge">
+                        <div class="rainbow-text">5 STARS!!!</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sidebar-box">
+                <div class="sidebar-title">MY LINKS</div>
+                <div class="sidebar-content">
+                    <p class="sidebar-link">&#9658; GeoCities</p>
+                    <p class="sidebar-link">&#9658; Angelfire</p>
+                    <p class="sidebar-link">&#9658; Alta Vista</p>
+                    <p class="sidebar-link">&#9658; Ask Jeeves</p>
+                    <p class="sidebar-link">&#9658; Netscape</p>
+                    <hr class="sidebar-hr">
+                    <p class="small-text">More links<br/>coming soon!!!</p>
+                </div>
+            </div>
+
+        </aside>
+
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+        <p class="blink-slow footer-best-viewed">&#9733; BEST VIEWED IN NETSCAPE NAVIGATOR 4.0 AT 800x600 RESOLUTION &#9733;</p>
+        <p class="footer-copy">&copy; 1999 WebMaster9000 | All Rights Reserved | No Hotlinking!!!</p>
+        <div class="badge-row">
+            <span class="footer-badge">NETSCAPE NOW!</span>
+            <span class="footer-badge">IE 4.0 OK</span>
+            <span class="footer-badge net-badge">POWERED BY .NET 10</span>
+            <span class="footer-badge blazor-badge">ZERO JS!</span>
+            <span class="footer-badge wasm-badge">WebAssembly</span>
+        </div>
+        <p class="footer-made">This page last updated: May 1999 | Made with &#10084; and Notepad</p>
+    </footer>
+
+</div>

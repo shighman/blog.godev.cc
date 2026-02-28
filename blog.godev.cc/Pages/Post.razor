@@ -1,0 +1,61 @@
+@page "/post/{Slug}"
+@inject BlogService BlogService
+
+<div class="page-post">
+    @if (_post is null)
+    {
+        <PageTitle>POST NOT FOUND!!!</PageTitle>
+        <div class="post-not-found">
+            <h2 class="blink-text">404 - POST NOT FOUND!!!</h2>
+            <p>That post doesn't exist! Maybe it got eaten by GeoCities...</p>
+            <NavLink href="/blog" class="btn-home">[ BACK TO BLOG ]</NavLink>
+        </div>
+    }
+    else
+    {
+        <PageTitle>@_post.Title</PageTitle>
+
+        <div class="post-header">
+            <NavLink href="/blog" class="back-link">&lt;&lt;&lt; BACK TO BLOG</NavLink>
+            <h2 class="post-title">@_post.Title</h2>
+            <p class="post-subtitle">@_post.Subtitle</p>
+            <div class="post-meta-bar">
+                <span>By: <b>@_post.Author</b></span>
+                <span> | </span>
+                <span>Date: <b>@_post.PublishedDate.ToString("MMMM d, yyyy")</b></span>
+            </div>
+            <div class="post-tags">
+                @foreach (var tag in _post.Tags)
+                {
+                    <span class="tag">#@tag</span>
+                }
+            </div>
+        </div>
+
+        <hr class="thick-hr">
+
+        <div class="post-body">
+            @_post.ContentHtml
+        </div>
+
+        <hr class="thick-hr">
+
+        <div class="post-footer">
+            <p class="blink-slow">Did you enjoy this post? Sign my GUESTBOOK!!!</p>
+            <NavLink href="/blog" class="btn-back-blog">[ BACK TO BLOG ARCHIVE ]</NavLink>
+            <NavLink href="/" class="btn-home">[ HOME ]</NavLink>
+        </div>
+    }
+</div>
+
+@code {
+    [Parameter]
+    public string Slug { get; set; } = string.Empty;
+
+    private BlogPost? _post;
+
+    protected override void OnParametersSet()
+    {
+        _post = BlogService.GetPostBySlug(Slug);
+    }
+}

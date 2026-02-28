@@ -1,0 +1,62 @@
+@page "/"
+@inject BlogService BlogService
+
+<PageTitle>WebMaster9000's RADICAL Blog!!!</PageTitle>
+
+<div class="page-home">
+
+    <div class="welcome-box">
+        <h2 class="welcome-title">
+            <span class="rainbow-text">*** WELCOME TO MY PAGE!!! ***</span>
+        </h2>
+        <p class="welcome-text">
+            Greetings fellow INTERNET EXPLORER!!! You have found the MOST RADICAL
+            blog on the entire Information Superhighway! Make yourself at home,
+            sign my guestbook, and enjoy your stay!!!
+        </p>
+        <p class="welcome-text">
+            This site is powered by <b>.NET 10 Blazor WebAssembly</b> with
+            <b>ABSOLUTELY ZERO JAVASCRIPT</b>!!! The future is NOW!!!
+        </p>
+        <div class="divider-stars">
+            &#9733;&nbsp;&#9733;&nbsp;&#9733;&nbsp;&#9733;&nbsp;&#9733;&nbsp;&#9733;&nbsp;&#9733;&nbsp;&#9733;&nbsp;&#9733;&nbsp;&#9733;
+        </div>
+    </div>
+
+    <div class="recent-posts-section">
+        <h2 class="section-title">!! LATEST UPDATES !!</h2>
+
+        @foreach (var post in BlogService.GetRecentPosts(3))
+        {
+            <div class="post-preview">
+                <div class="post-preview-header">
+                    <span class="new-badge blink-text">NEW!</span>
+                    <NavLink href="@($"/post/{post.Slug}")" class="post-preview-title">
+                        @post.Title
+                    </NavLink>
+                </div>
+                <p class="post-preview-subtitle">@post.Subtitle</p>
+                <p class="post-preview-meta">
+                    Posted by <b>@post.Author</b> on <b>@post.PublishedDate.ToString("MMMM d, yyyy")</b>
+                </p>
+                <div class="post-tags">
+                    @foreach (var tag in post.Tags)
+                    {
+                        <span class="tag">#@tag</span>
+                    }
+                </div>
+                <NavLink href="@($"/post/{post.Slug}")" class="read-more-link">
+                    [ READ MORE &gt;&gt;&gt; ]
+                </NavLink>
+                <hr class="post-divider">
+            </div>
+        }
+
+        <div class="view-all-wrapper">
+            <NavLink href="/blog" class="btn-view-all">
+                *** VIEW ALL POSTS ***
+            </NavLink>
+        </div>
+    </div>
+
+</div>

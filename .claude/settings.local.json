@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(dotnet new:*)",
+      "Bash(dir:*)",
+      "Bash(powershell -Command \"Get-ChildItem ''C:\\\\Users\\\\shigh\\\\Proton\\\\My files\\\\Code\\\\Repos\\\\blog.godev.cc'' -Name\")",
+      "Bash(dotnet build:*)"
+    ]
+  }
+}

@@ -1,0 +1,4 @@
+# Prevent line-ending conversion on Blazor WASM assets
+# to avoid integrity hash failures on GitHub Pages
+*.js binary
+*.wasm binary
