@@ -2,7 +2,11 @@
 @inject BlogService BlogService
 
 <div class="page-post">
-    @if (_post is null)
+    @if (_loading)
+    {
+        <p class="blink-slow">*** LOADING POST... DIALING UP THE MODEM!!! ***</p>
+    }
+    else if (_post is null)
     {
         <PageTitle>POST NOT FOUND!!!</PageTitle>
         <div class="post-not-found">
@@ -53,9 +57,12 @@
     public string Slug { get; set; } = string.Empty;
 
     private BlogPost? _post;
+    private bool _loading = true;
 
-    protected override void OnParametersSet()
+    protected override async Task OnParametersSetAsync()
     {
-        _post = BlogService.GetPostBySlug(Slug);
+        _loading = true;
+        _post = await BlogService.GetPostBySlugAsync(Slug);
+        _loading = false;
     }
 }

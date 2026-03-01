@@ -18,6 +18,7 @@ concurrency:
 env:
   DOTNET_VERSION: "10.0.x"
   PROJECT_PATH: "blog.godev.cc/blog.godev.cc.csproj"
+  POSTS_DIR: "blog.godev.cc/wwwroot/posts"
   PUBLISH_DIR: "blog.godev.cc/bin/Release/net10.0/publish/wwwroot"
 
 jobs:
@@ -29,6 +30,33 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+
+      - name: Generate posts.json manifest from post files
+        run: |
+          POSTS_DIR="${{ env.POSTS_DIR }}"
+          MANIFEST="$POSTS_DIR/posts.json"
+          echo "[" > "$MANIFEST"
+          FIRST=true
+          for f in "$POSTS_DIR"/*.json; do
+            [ "$(basename "$f")" = "posts.json" ] && continue
+            if [ "$FIRST" = true ]; then
+              FIRST=false
+            else
+              echo "," >> "$MANIFEST"
+            fi
+            # Extract everything except contentHtml to keep the manifest small
+            python3 -c "
+          import json, sys
+          with open('$f') as fh:
+              post = json.load(fh)
+          post.pop('contentHtml', None)
+          json.dump(post, sys.stdout, indent=2)
+          " >> "$MANIFEST"
+          done
+          echo "" >> "$MANIFEST"
+          echo "]" >> "$MANIFEST"
+          echo "Generated manifest with $(grep -c '"slug"' "$MANIFEST") posts"
+          cat "$MANIFEST"
 
       - name: Setup .NET SDK
         uses: actions/setup-dotnet@v4

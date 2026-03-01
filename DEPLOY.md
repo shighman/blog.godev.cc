@@ -119,24 +119,57 @@ Open the URL shown in the terminal (e.g. `https://localhost:5001`).
 
 ## Adding new blog posts
 
-1. Edit `blog.godev.cc/Services/BlogService.cs`
-2. Add a new `BlogPost` object to the `_posts` list:
-   ```csharp
-   new BlogPost
-   {
-       Slug = "my-new-post",
-       Title = "My New Post Title!!!",
-       Subtitle = "A subtitle for the post",
-       PublishedDate = new DateTime(1999, 6, 15),
-       Author = "WebMaster9000",
-       Tags = ["tag1", "tag2"],
-       ContentHtml = new MarkupString("""
-           <p>Your HTML content here!!!</p>
-       """)
-   },
-   ```
-3. Commit and push to `main`
-4. The GitHub Actions workflow deploys automatically
+Blog posts are JSON files in `blog.godev.cc/wwwroot/posts/`. No C# changes needed.
+
+### 1. Create a new JSON file
+
+Create a file at `blog.godev.cc/wwwroot/posts/my-new-post.json`:
+
+```json
+{
+  "slug": "my-new-post",
+  "title": "My New Post Title!!!",
+  "subtitle": "A subtitle for the post",
+  "publishedDate": "1999-06-15T00:00:00",
+  "author": "WebMaster9000",
+  "tags": ["tag1", "tag2"],
+  "contentHtml": "<p>Your HTML content here!!!</p><p>Use standard HTML tags for formatting.</p>"
+}
+```
+
+**Important:**
+- The filename must match the `slug` value (e.g. `my-new-post.json` for slug `my-new-post`)
+- The `contentHtml` field contains the post body as a single-line HTML string
+- Escape double quotes inside `contentHtml` with `\"`
+
+### 2. Push to main
+
+```bash
+git add blog.godev.cc/wwwroot/posts/my-new-post.json
+git commit -m "Add new blog post: my-new-post"
+git push
+```
+
+### 3. Done
+
+The GitHub Actions workflow automatically:
+1. Scans all `.json` files in the `posts/` folder
+2. Regenerates `posts.json` (the manifest) from those files
+3. Builds and deploys the site
+
+The new post appears on the home page and blog archive without any code changes.
+
+### Post JSON format reference
+
+| Field          | Type     | Description                                      |
+|----------------|----------|--------------------------------------------------|
+| `slug`         | string   | URL-safe identifier (must match filename)         |
+| `title`        | string   | Post title displayed on the site                  |
+| `subtitle`     | string   | Secondary line shown under the title              |
+| `publishedDate`| string   | ISO 8601 date (e.g. `"1999-06-15T00:00:00"`)     |
+| `author`       | string   | Author name                                       |
+| `tags`         | string[] | Array of tag strings                              |
+| `contentHtml`  | string   | Post body as HTML (single-line, escaped quotes)   |
 
 ## Troubleshooting
 
@@ -160,3 +193,9 @@ Open the URL shown in the terminal (e.g. `https://localhost:5001`).
 ### Direct URL navigation shows 404
 
 The workflow copies `index.html` to `404.html` so that GitHub Pages serves the Blazor app for any URL. If this isn't working, check that the **Copy index.html to 404.html** step succeeded in the Actions log.
+
+### New post not appearing
+
+- Ensure the JSON file is valid (check with a JSON validator)
+- Ensure the filename matches the `slug` field
+- Check the **Generate posts.json manifest** step in the Actions log — it prints the generated manifest

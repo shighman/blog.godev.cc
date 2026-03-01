@@ -26,37 +26,53 @@
     <div class="recent-posts-section">
         <h2 class="section-title">!! LATEST UPDATES !!</h2>
 
-        @foreach (var post in BlogService.GetRecentPosts(3))
+        @if (_recentPosts is null)
         {
-            <div class="post-preview">
-                <div class="post-preview-header">
-                    <span class="new-badge blink-text">NEW!</span>
-                    <NavLink href="@($"/post/{post.Slug}")" class="post-preview-title">
-                        @post.Title
+            <p class="blink-slow">*** LOADING POSTS FROM THE SERVER... PLEASE WAIT!!! ***</p>
+        }
+        else
+        {
+            @foreach (var post in _recentPosts)
+            {
+                <div class="post-preview">
+                    <div class="post-preview-header">
+                        <span class="new-badge blink-text">NEW!</span>
+                        <NavLink href="@($"/post/{post.Slug}")" class="post-preview-title">
+                            @post.Title
+                        </NavLink>
+                    </div>
+                    <p class="post-preview-subtitle">@post.Subtitle</p>
+                    <p class="post-preview-meta">
+                        Posted by <b>@post.Author</b> on <b>@post.PublishedDate.ToString("MMMM d, yyyy")</b>
+                    </p>
+                    <div class="post-tags">
+                        @foreach (var tag in post.Tags)
+                        {
+                            <span class="tag">#@tag</span>
+                        }
+                    </div>
+                    <NavLink href="@($"/post/{post.Slug}")" class="read-more-link">
+                        [ READ MORE &gt;&gt;&gt; ]
                     </NavLink>
+                    <hr class="post-divider">
                 </div>
-                <p class="post-preview-subtitle">@post.Subtitle</p>
-                <p class="post-preview-meta">
-                    Posted by <b>@post.Author</b> on <b>@post.PublishedDate.ToString("MMMM d, yyyy")</b>
-                </p>
-                <div class="post-tags">
-                    @foreach (var tag in post.Tags)
-                    {
-                        <span class="tag">#@tag</span>
-                    }
-                </div>
-                <NavLink href="@($"/post/{post.Slug}")" class="read-more-link">
-                    [ READ MORE &gt;&gt;&gt; ]
+            }
+
+            <div class="view-all-wrapper">
+                <NavLink href="/blog" class="btn-view-all">
+                    *** VIEW ALL POSTS ***
                 </NavLink>
-                <hr class="post-divider">
             </div>
         }
-
-        <div class="view-all-wrapper">
-            <NavLink href="/blog" class="btn-view-all">
-                *** VIEW ALL POSTS ***
-            </NavLink>
-        </div>
     </div>
 
 </div>
+
+@code {
+    private IReadOnlyList<PostSummary>? _recentPosts;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _recentPosts = await BlogService.GetRecentPostsAsync(3);
+    }
+}

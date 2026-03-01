@@ -1,0 +1,42 @@
+[
+  {
+    "slug": "under-construction-update",
+    "title": "Site Update - Still Under Construction!!!",
+    "subtitle": "What I have been working on this month",
+    "publishedDate": "1999-05-01T00:00:00",
+    "author": "WebMaster9000",
+    "tags": ["update", "construction", "news"]
+  },
+  {
+    "slug": "my-new-midi-collection",
+    "title": "Check Out My NEW MIDI Collection!!!",
+    "subtitle": "The best MIDI files on the entire internet",
+    "publishedDate": "1999-04-07T00:00:00",
+    "author": "WebMaster9000",
+    "tags": ["midi", "music", "cool", "downloads"]
+  },
+  {
+    "slug": "dotnet-blazor-is-radical",
+    "title": ".NET Blazor is TOTALLY RADICAL!!!",
+    "subtitle": "Why Blazor is the future of the Information Superhighway",
+    "publishedDate": "1999-03-20T00:00:00",
+    "author": "WebMaster9000",
+    "tags": ["blazor", "dotnet", "programming", "radical", "tech"]
+  },
+  {
+    "slug": "top-10-kewl-links",
+    "title": "My Top 10 KEWL Links!!!",
+    "subtitle": "Check out these RADICAL sites on the Web",
+    "publishedDate": "1999-02-03T00:00:00",
+    "author": "WebMaster9000",
+    "tags": ["links", "web", "cool", "surfing"]
+  },
+  {
+    "slug": "welcome-to-my-site",
+    "title": "Welcome to My AWESOME Site!!!",
+    "subtitle": "You have entered the ZONE",
+    "publishedDate": "1999-01-15T00:00:00",
+    "author": "WebMaster9000",
+    "tags": ["intro", "welcome", "cool"]
+  }
+]

@@ -12,36 +12,52 @@
     </h2>
     <p class="page-intro">All of my posts, in reverse chronological order. Enjoy!!!</p>
 
-    <div class="post-count-bar">
-        Total Posts: <b>@BlogService.GetAllPosts().Count</b> posts and COUNTING!!!
-    </div>
-
-    <hr class="thick-hr">
-
-    @foreach (var post in BlogService.GetAllPosts())
+    @if (_allPosts is null)
     {
-        <div class="blog-post-row">
-            <div class="blog-post-date">
-                <div class="date-box">
-                    <div class="date-month">@post.PublishedDate.ToString("MMM").ToUpper()</div>
-                    <div class="date-day">@post.PublishedDate.Day</div>
-                    <div class="date-year">@post.PublishedDate.Year</div>
-                </div>
-            </div>
-            <div class="blog-post-info">
-                <NavLink href="@($"/post/{post.Slug}")" class="blog-post-title-link">
-                    @post.Title
-                </NavLink>
-                <p class="blog-post-subtitle">@post.Subtitle</p>
-                <div class="post-tags">
-                    @foreach (var tag in post.Tags)
-                    {
-                        <span class="tag">#@tag</span>
-                    }
-                </div>
-            </div>
+        <p class="blink-slow">*** LOADING POSTS FROM THE SERVER... PLEASE WAIT!!! ***</p>
+    }
+    else
+    {
+        <div class="post-count-bar">
+            Total Posts: <b>@_allPosts.Count</b> posts and COUNTING!!!
         </div>
-        <hr class="post-divider">
+
+        <hr class="thick-hr">
+
+        @foreach (var post in _allPosts)
+        {
+            <div class="blog-post-row">
+                <div class="blog-post-date">
+                    <div class="date-box">
+                        <div class="date-month">@post.PublishedDate.ToString("MMM").ToUpper()</div>
+                        <div class="date-day">@post.PublishedDate.Day</div>
+                        <div class="date-year">@post.PublishedDate.Year</div>
+                    </div>
+                </div>
+                <div class="blog-post-info">
+                    <NavLink href="@($"/post/{post.Slug}")" class="blog-post-title-link">
+                        @post.Title
+                    </NavLink>
+                    <p class="blog-post-subtitle">@post.Subtitle</p>
+                    <div class="post-tags">
+                        @foreach (var tag in post.Tags)
+                        {
+                            <span class="tag">#@tag</span>
+                        }
+                    </div>
+                </div>
+            </div>
+            <hr class="post-divider">
+        }
     }
 
 </div>
+
+@code {
+    private IReadOnlyList<PostSummary>? _allPosts;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _allPosts = await BlogService.GetAllPostsAsync();
+    }
+}
