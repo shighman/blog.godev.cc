@@ -31,7 +31,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Generate posts.json manifest from post files
+      - name: Generate posts.json manifest from post metadata files
         run: |
           POSTS_DIR="${{ env.POSTS_DIR }}"
           MANIFEST="$POSTS_DIR/posts.json"
@@ -44,14 +44,7 @@ jobs:
             else
               echo "," >> "$MANIFEST"
             fi
-            # Extract everything except contentHtml to keep the manifest small
-            python3 -c "
-          import json, sys
-          with open('$f') as fh:
-              post = json.load(fh)
-          post.pop('contentHtml', None)
-          json.dump(post, sys.stdout, indent=2)
-          " >> "$MANIFEST"
+            cat "$f" >> "$MANIFEST"
           done
           echo "" >> "$MANIFEST"
           echo "]" >> "$MANIFEST"

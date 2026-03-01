@@ -4,6 +4,5 @@
   "subtitle": "You have entered the ZONE",
   "publishedDate": "1999-01-15T00:00:00",
   "author": "WebMaster9000",
-  "tags": ["intro", "welcome", "cool"],
-  "contentHtml": "<p>WELCOME 2 MY SITE!!!! This is the BEST site on the INTERNET!!!</p><p>I worked SO HARD on this. Please sign my <b>GUESTBOOK</b>!!!</p><hr><p>This site is optimized for <b>800x600</b> resolution and Netscape Navigator 4.0.</p><p>You are visitor number <span style=\"color:#ff0000;font-weight:bold;\">000001337</span> !!! WOW!!!</p><p>Here are some things I like:</p><ul><li>The World Wide Web</li><li>Netscape Navigator</li><li>MIDI music (coming soon!)</li><li>Animated GIFs</li><li>Writing HTML by hand in Notepad</li><li>AOL chat rooms</li><li>The Information Superhighway</li></ul><p><b>PLEASE LINK TO MY SITE!!!</b> Copy this button to your page:</p><p><i>[button goes here - under construction!!!]</i></p>"
+  "tags": ["intro", "welcome", "cool"]
 }

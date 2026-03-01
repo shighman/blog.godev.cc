@@ -1,10 +1,12 @@
 using System.Text.Json.Serialization;
+using Markdig;
 using Microsoft.AspNetCore.Components;
 
 namespace blog.godev.cc.Models;
 
 /// <summary>
-/// JSON-serializable post metadata used in the manifest (posts.json).
+/// JSON-serializable post metadata. Used both in the manifest (posts.json)
+/// and in individual post metadata files (wwwroot/posts/{slug}.json).
 /// </summary>
 public class PostSummary
 {
@@ -28,20 +30,14 @@ public class PostSummary
 }
 
 /// <summary>
-/// Full JSON-serializable post including HTML content.
-/// Stored as individual JSON files in wwwroot/posts/{slug}.json.
-/// </summary>
-public class BlogPostJson : PostSummary
-{
-    [JsonPropertyName("contentHtml")]
-    public string ContentHtml { get; set; } = string.Empty;
-}
-
-/// <summary>
-/// Rendered blog post used by Razor pages. Created from BlogPostJson.
+/// Rendered blog post used by Razor pages. Built from PostSummary + raw Markdown.
 /// </summary>
 public class BlogPost
 {
+    private static readonly MarkdownPipeline Pipeline = new MarkdownPipelineBuilder()
+        .UseAdvancedExtensions()
+        .Build();
+
     public string Slug { get; init; } = string.Empty;
     public string Title { get; init; } = string.Empty;
     public string Subtitle { get; init; } = string.Empty;
@@ -50,14 +46,14 @@ public class BlogPost
     public string[] Tags { get; init; } = [];
     public MarkupString ContentHtml { get; init; }
 
-    public static BlogPost FromJson(BlogPostJson json) => new()
+    public static BlogPost FromMarkdown(PostSummary summary, string markdown) => new()
     {
-        Slug = json.Slug,
-        Title = json.Title,
-        Subtitle = json.Subtitle,
-        PublishedDate = json.PublishedDate,
-        Author = json.Author,
-        Tags = json.Tags,
-        ContentHtml = new MarkupString(json.ContentHtml)
+        Slug = summary.Slug,
+        Title = summary.Title,
+        Subtitle = summary.Subtitle,
+        PublishedDate = summary.PublishedDate,
+        Author = summary.Author,
+        Tags = summary.Tags,
+        ContentHtml = new MarkupString(Markdown.ToHtml(markdown, Pipeline))
     };
 }
